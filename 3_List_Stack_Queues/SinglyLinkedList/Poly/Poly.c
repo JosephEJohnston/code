@@ -63,11 +63,32 @@ MultPolynomial( Polynomial Poly1, Polynomial Poly2 )
 {
 	Polynomial PolyProd = NULL;
 	//PolyProd = MultPolynomialFirst( Poly1, Poly2 );
-	//PolyProd = MultPolynomialSecond( Poly1, Poly2 );
-	PolyProd = MultPolynomialThird( Poly1, Poly2 );
+	PolyProd = MultPolynomialSecond( Poly1, Poly2 );
+	//PolyProd = MultPolynomialThird( Poly1, Poly2 );
 
 	return PolyProd;
 }
+
+Polynomial
+PowerPolynomial( Polynomial Poly, int P )
+{
+	Polynomial PowPoly = NULL;
+
+	if ( P < 0 )
+	{
+		Error( " P is negative!!!" );
+		return NULL;
+	}
+	else if ( P == 0 )
+		PowPoly = PowerZeroPoly();
+	else if ( P == 1 )
+		return Poly;
+	else
+		PowPoly = PowerPoly( Poly, P );
+
+	return PowPoly;
+}
+
 
 void 
 OrderInsert( int Coefficient, int Exponent, Polynomial Poly )
@@ -140,6 +161,22 @@ Insert( int Coefficient, int Exponent, Polynomial Poly, Polynomial Pos )
 
 }
 
+void
+DeletePolynomial( Polynomial Poly )
+{
+	Polynomial TmpPoly = NULL;
+
+	while ( Poly )
+	{
+		TmpPoly = Poly;
+		Poly = Poly->Next;
+
+		TmpPoly->Next = NULL;
+		free( TmpPoly );
+		TmpPoly = NULL;
+	}
+
+}
 
 void
 PrintPolynomial( Polynomial Poly )
@@ -156,3 +193,20 @@ PrintPolynomial( Polynomial Poly )
 
 }
 
+PtrToNode
+Advance( PtrToNode Pos )
+{
+	return Pos->Next;
+}
+
+int 
+Coefficient( PtrToNode Pos )
+{
+	return Pos->Coefficient;
+}
+
+int 
+Exponent( PtrToNode Pos )
+{
+	return Pos->Exponent;
+}

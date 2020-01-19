@@ -1,6 +1,6 @@
 #include "HeadFile.h"
 
-int main(void)
+int main( void )
 {
 	Polynomial L = NULL, G = NULL;
 	Polynomial PS = NULL;
